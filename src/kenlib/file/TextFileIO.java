@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2012 Kenneth Chan
+ *  Copyright (c) 2012, 2014 Kenneth C.
  *
  *  This file is part of KenLib.
  *
@@ -39,7 +39,7 @@ public class TextFileIO {
 	 */
 	public static String[] readFile(File file){
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 			String line;
 			ArrayList<String> lines = new ArrayList<String>();
 			while((line = br.readLine()) != null) {
@@ -73,12 +73,14 @@ public class TextFileIO {
 	 */
 	public static void writeFile(File file, String[] lines){
 		try {
-			PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file)), true);
+			PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
 			for(String s : lines){
 				pw.println(s);
 			}
 			pw.close();
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -100,7 +102,7 @@ public class TextFileIO {
 	 */
 	public static void writeLine(File file, String line){
 		try {
-			PrintWriter pw = new PrintWriter(new FileWriter(file, true), true);
+			PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8"));
 			pw.println(line);
 			pw.close();
 		} catch (FileNotFoundException e) {

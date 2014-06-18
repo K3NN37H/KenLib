@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2012 Kenneth Chan
+ *  Copyright (c) 2012, 2014 Kenneth C.
  *
  *  This file is part of KenLib.
  *
@@ -33,13 +33,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * The <code>SoundStream</code> class is an easy-to-use implementation of the Java Sound API's
  * {@link SourceDataLine} to stream audio from a file for playing.
  * @author Kenneth C.
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class SoundStream extends SoundBase{
 	private SourceDataLine soundLine;
 	private volatile AudioInputStream ais;
 	private Thread lineWriter;
-	private boolean killThread;
+	private volatile boolean killThread;
 	
 	/**
 	 * Creates a new SoundStream with the specified audio file
@@ -105,7 +105,7 @@ public class SoundStream extends SoundBase{
 		System.out.println("running!");
 	}
 	
-	synchronized void threadPause() {
+	private synchronized void threadPause() {
 		try {
 			wait();
 		} catch (InterruptedException e) {
@@ -113,7 +113,7 @@ public class SoundStream extends SoundBase{
 		}
 	}
 	
-	synchronized void threadResume() {
+	private synchronized void threadResume() {
 		notify();
 	}
 	
@@ -193,7 +193,7 @@ public class SoundStream extends SoundBase{
 	/**
 	 * Resets the audio position back to the beginning.
 	 */
-	void resetAudio() {
+	private void resetAudio() {
 		try {
 			ais.close();
 			ais = AudioSystem.getAudioInputStream(soundFile);

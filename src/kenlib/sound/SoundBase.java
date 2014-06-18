@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2012 Kenneth Chan
+ *  Copyright (c) 2012, 2014 Kenneth C.
  *
  *  This file is part of KenLib.
  *
@@ -23,11 +23,11 @@ import java.io.File;
  * The <code>SoundBase</code> class is the base for classes implementing
  * the Java Sound API.
  * @author Kenneth C.
- * @version 1.0.0
+ * @version 1.0.1
  */
 public abstract class SoundBase {
-	protected boolean playing;
-	protected boolean repeating;
+	protected volatile boolean playing;
+	protected volatile boolean repeating;
 	protected File soundFile;
 	
 	public abstract void start();

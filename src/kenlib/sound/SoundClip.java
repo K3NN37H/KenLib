@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2012 Kenneth Chan
+ *  Copyright (c) 2012 Kenneth C.
  *
  *  This file is part of KenLib.
  *
